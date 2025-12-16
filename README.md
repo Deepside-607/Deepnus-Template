@@ -1,2 +1,22 @@
-# DeepnusTemplate
-تمپلیت لینک سابسکریبشن پنل ربکا و مرزبان
+
+### Template for rebecca and marzban panel
+
+### مرزبان:  
+### ابتدا قالب را با لینک زیر دانلود کنید
+
+```bash
+git clone https://github.com/Deepside-607/Deepnus-Template.git
+```
+### سپس دستور زیر را بزنید تا تمپلیت ست شود
+
+```bash
+echo 'CUSTOM_TEMPLATES_DIRECTORY="/var/lib/marzban/templates/"' | sudo tee -a /opt/marzban/.env
+echo 'SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"' | sudo tee -a /opt/marzban/.env
+```
+
+### سپس با دستور زیر پنل خودتون رو ری‌استارت کنید
+
+```bash
+marzban restart
+```
+
