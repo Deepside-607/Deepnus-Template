@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>پنل کاربری | {{ user.username }}</title>
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/misc/Farsi-Digits/font-face.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        /* * ==============================================
+         * GLOBAL THEME VARIABLES (Red/Black Cyberpunk)
+         * ==============================================
+         */
+        :root {
+            --bg-body: #050505;
+            --bg-card: #121212;
+            --bg-card-hover: #1a1a1a;
+            
+            /* رنگ‌های اصلی نئونی */
+            --primary: #ff003c;
+            --primary-dark: #cc0030;
+            --primary-glow: rgba(255, 0, 60, 0.4);
+            --primary-dim: rgba(255, 0, 60, 0.08);
+            
+            /* تایپوگرافی */
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --text-dark: #555555;
+            
+            /* وضعیت‌ها */
+            --status-active: #00ff88;
+            --status-warning: #ffaa00;
+            --status-danger: #ff003c;
+            --status-disabled: #777777;
+            
+            /* ابعاد و حاشیه‌ها */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            
+            --border-light: 1px solid rgba(255, 255, 255, 0.08);
+            --border-primary: 1px solid rgba(255, 0, 60, 0.3);
+            
+            --font-stack: 'Arad', 'Vazirmatn', sans-serif;
+        }
+
+        /* * ==============================================
+         * RESET & BASIC LAYOUT
+         * ==============================================
+         */
+        * {
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* پس‌زمینه ثابت */
+        .bg-fixed {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at top center, #1a0508 0%, #000000 70%);
+            pointer-events: none;
+        }
+
+        /* نقاط نورانی متحرک */
+        .bg-spot {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.25;
+            z-index: -1;
+            animation: pulseGlow 10s infinite alternate;
+        }
+        .spot-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--primary); }
+        .spot-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: #600010; animation-delay: 2s; }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.2; }
+            100% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        /* کانتینر اصلی */
+        .main-wrapper {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 100px;
+        }
+
+        /* * ==============================================
+         * PROFILE HEADER
+         * ==============================================
+         */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .avatar-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #111;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .avatar-container svg {
+            width: 45px; height: 45px; fill: #fff;
+        }
+
+        .username-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* بج‌های وضعیت */
+        .status-chip {
+            margin-top: 10px;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background-color: currentColor; }
+        
+        .st-active { color: var(--status-active); border-color: rgba(0,255,136,0.3); box-shadow: 0 0 10px rgba(0,255,136,0.1); }
+        .st-expired { color: var(--status-danger); border-color: rgba(255,0,60,0.3); box-shadow: 0 0 10px rgba(255,0,60,0.1); }
+        .st-limited { color: var(--status-warning); border-color: rgba(255,170,0,0.3); }
+        .st-disabled { color: var(--status-disabled); border-color: #444; }
+
+        /* * ==============================================
+         * SUBSCRIPTION ACTIONS (COPY/QR)
+         * ==============================================
+         */
+        .sub-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease 0.2s backwards;
+        }
+
+        .btn-main {
+            background: rgba(255, 0, 60, 0.08);
+            border: 1px solid var(--primary);
+            color: var(--text-main);
+            padding: 14px;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-main:hover {
+            background: var(--primary);
+            box-shadow: 0 0 25px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-main:active { transform: scale(0.97); }
+        .btn-icon { width: 20px; height: 20px; fill: currentColor; }
+
+        /* * ==============================================
+         * STATS DASHBOARD
+         * ==============================================
+         */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .stat-box {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-box::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.6;
+        }
+
+        .stat-number {
+            font-size: 1.4rem; font-weight: 800; margin: 10px 0 5px;
+        }
+        .stat-desc { font-size: 0.75rem; color: var(--text-muted); }
+
+        .progress-bar-bg {
+            width: 100%; height: 6px; background: rgba(255,255,255,0.08);
+            border-radius: 10px; margin-top: 15px; overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%; border-radius: 10px; width: 0%;
+            background: linear-gradient(90deg, var(--primary), #ff6b8b);
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* * ==============================================
+         * CONFIG CARDS & DETAILS
+         * ==============================================
+         */
+        .section-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 20px; padding-right: 5px;
+            cursor: pointer;
+            user-select: none;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            transition: background 0.3s;
+        }
+        .section-header:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .section-header h3 { margin: 0; font-size: 1.1rem; flex-shrink: 0;}
+        .section-line { height: 3px; flex: 1; background: linear-gradient(90deg, var(--primary), transparent); border-radius: 2px; }
+        
+        .toggle-icon {
+            font-size: 0.8rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+            margin-right: 10px;
+        }
+        .section-header.active .toggle-icon { transform: rotate(180deg); }
+
+        /* کانتینر لیست کانفیگ‌ها - پیش‌فرض مخفی */
+        .config-list {
+            display: none;
+            animation: slideDown 0.4s ease forwards;
+            padding-bottom: 20px;
+        }
+        .config-list.show { display: block; }
+
+        .config-card {
+            background: rgba(30, 30, 30, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+            position: relative;
+        }
+        .config-card:hover { background: rgba(40, 40, 40, 0.6); border-color: rgba(255, 0, 60, 0.2); }
+
+        .config-top {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+        }
+        
+        .protocol-badge {
+            background: rgba(255, 0, 60, 0.15); color: var(--primary);
+            padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 1px;
+            border: 1px solid rgba(255, 0, 60, 0.2);
+        }
+
+        .config-name { font-size: 0.9rem; font-weight: 600; color: #ddd; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 60%; }
+
+        .config-toolbar {
+            display: flex; gap: 8px; margin-top: 10px;
+        }
+
+        .tool-btn {
+            flex: 1;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: #ccc;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            font-family: var(--font-stack);
+            transition: 0.2s;
+        }
+        .tool-btn:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+        .tool-btn.accent:hover { background: var(--primary); border-color: var(--primary); }
+
+        .config-source {
+            display: none;
+            margin-top: 12px;
+            background: #000;
+            border: 1px dashed #333;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .config-source.open { display: block; animation: fadeIn 0.3s; }
+
+        .source-text {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 0.75rem;
+            resize: none;
+            height: 60px;
+            word-break: break-all;
+            direction: ltr;
+        }
+
+        /* * ==============================================
+         * MODAL & TOAST
+         * ==============================================
+         */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .modal-box {
+            background: #151515; width: 90%; max-width: 320px;
+            padding: 25px; border-radius: 20px;
+            border: 1px solid var(--primary);
+            text-align: center;
+            transform: scale(0.8); transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+        
+        #qr-placeholder {
+            background: #fff; padding: 15px; border-radius: 12px;
+            margin: 15px auto; width: fit-content;
+        }
+        #qr-placeholder img { display: block; }
+
+        .modal-close {
+            background: var(--primary); color: #fff; border: none;
+            width: 100%; padding: 12px; border-radius: 50px;
+            font-weight: bold; cursor: pointer; font-family: inherit;
+        }
+
+        .toast {
+            position: fixed; bottom: 30px; left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1f1f1f; border: 1px solid var(--primary);
+            color: #fff; padding: 10px 20px; border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex; align-items: center; gap: 8px;
+            z-index: 2000; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            white-space: nowrap; font-size: 0.9rem;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        
+        /* استایل دکمه رفرش دستی */
+        .manual-fetch-btn {
+            display: none; /* پیش فرض مخفی */
+            width: 100%;
+            background: transparent;
+            border: 1px dashed #444;
+            color: #777;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .manual-fetch-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .footer { margin-top: 50px; text-align: center; font-size: 0.75rem; color: #444; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-fixed"></div>
+    <div class="bg-spot spot-1"></div>
+    <div class="bg-spot spot-2"></div>
+
+    <div class="main-wrapper">
+        
+        <div class="profile-card">
+            <div class="avatar-container">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            </div>
+            <h1 class="username-title">{{ user.username }}</h1>
+            
+            {% if user.status == 'active' %}
+                <div class="status-chip st-active"><span class="dot"></span>فعال</div>
+            {% elif user.status == 'limited' %}
+                <div class="status-chip st-limited"><span class="dot"></span>محدود شده (حجم/زمان)</div>
+            {% elif user.status == 'expired' %}
+                <div class="status-chip st-expired"><span class="dot"></span>منقضی شده</div>
+            {% elif user.status == 'disabled' %}
+                <div class="status-chip st-disabled"><span class="dot"></span>غیرفعال شده</div>
+            {% else %}
+                <div class="status-chip st-limited"><span class="dot"></span>{{ user.status }}</div>
+            {% endif %}
+        </div>
+
+        <div class="sub-actions">
+            <button class="btn-main" onclick="copySubscription('{{ subscription_url }}')">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                کپی لینک اشتراک
+            </button>
+            <button class="btn-main" onclick="openQR('{{ subscription_url }}', 'لینک اشتراک')">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"/></svg>
+                QR اشتراک
+            </button>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="stat-box" style="animation: fadeInUp 0.5s ease backwards;">
+                <svg style="width:24px;height:24px;fill:var(--primary);margin-bottom:5px;" viewBox="0 0 24 24"><path d="M7.77 6.76L6.23 5.48.82 12l5.41 6.52 1.54-1.28L3.42 12l4.35-5.24zM7 13h2v-2H7v2zm10-2h-2v2h2v-2zm-6 2h2v-2h-2v2zm6.77-7.52l-1.54 1.28L20.58 12l-4.35 5.24 1.54 1.28L23.18 12l-5.41-6.52z"/></svg>
+                <div class="stat-number" dir="ltr">{{ user.used_traffic | bytesformat }}</div>
+                <div class="stat-desc">مصرف از {{ user.data_limit | bytesformat if user.data_limit else 'نامحدود' }}</div>
+                
+                {% if user.data_limit %}
+                    {% set usage_p = (user.used_traffic / user.data_limit * 100) | round(2) %}
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: {{ usage_p }}%"></div></div>
+                {% else %}
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%; background: #333;"></div></div>
+                {% endif %}
+            </div>
+
+            <div class="stat-box" style="animation: fadeInUp 0.5s ease 0.1s backwards;">
+                <svg style="width:24px;height:24px;fill:var(--primary);margin-bottom:5px;" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                {% if user.expire %}
+                    {% set days = ((user.expire - now().timestamp()) / 86400) | int %}
+                    <div class="stat-number">{{ days }}</div>
+                    <div class="stat-desc">روز باقی‌مانده</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%; filter: hue-rotate(40deg);"></div></div>
+                {% else %}
+                    <div class="stat-number">∞</div>
+                    <div class="stat-desc">زمان نامحدود</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%; background: #00ff88;"></div></div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="section-header" onclick="toggleConfigs(this)">
+            <h3>کانکشن‌های شما</h3>
+            <div class="section-line"></div>
+            <span class="toggle-icon">▼</span>
+        </div>
+
+        <div class="config-list" id="configContainer">
+            {% for link in links %}
+                {% set protocol = link.split('://')[0] %}
+                <div class="config-card server-item" style="animation: fadeInUp 0.5s ease {{ loop.index0 * 0.1 }}s backwards;">
+                    <div class="config-top">
+                        <span class="protocol-badge">{{ protocol }}</span>
+                        <span class="config-name" dir="auto">
+                            {% if '#' in link %}
+                                {{ link.split('#')[-1] }}
+                            {% else %}
+                                Config #{{ loop.index }}
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="config-toolbar">
+                        <button class="tool-btn accent" onclick="copyText('{{ link }}')">
+                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            کپی
+                        </button>
+                        <button class="tool-btn" onclick="openQR('{{ link }}', 'Config #{{ loop.index }}')">
+                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"/></svg>
+                            QR
+                        </button>
+                        <button class="tool-btn" onclick="toggleSource(this)">
+                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            مشاهده
+                        </button>
+                    </div>
+
+                    <div class="config-source">
+                        <textarea class="source-text" readonly onclick="this.select()">{{ link }}</textarea>
+                        <div style="font-size:0.7rem; color:#666; margin-top:4px;">برای کپی دستی روی متن کلیک کنید</div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            <div id="loading-msg" style="display:none; text-align:center; padding:10px; color:#666; font-size:0.8rem;">در حال دریافت اطلاعات...</div>
+            <div id="error-msg" style="display:none; text-align:center; padding:10px; color:#ff003c; font-size:0.8rem;"></div>
+            
+            <button id="retry-btn" class="manual-fetch-btn" onclick="checkAndLoadConfigs(true)">
+                تلاش مجدد برای دریافت کانفیگ‌ها
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>Deepnus-Template</p>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="qrModal" onclick="closeQR(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="qrTitle" style="margin-top:0; color:var(--text-main);">QR Code</h3>
+            <div id="qr-placeholder"></div>
+            <button class="modal-close" onclick="closeQR()">بستن</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <svg style="width:20px;height:20px;color:var(--status-active);" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span>کپی شد!</span>
+    </div>
+
+    <script>
+        // ==========================================
+        //  FIXED LOGIC FOR COPY & QR & UX
+        // ==========================================
+
+        function copySubscription(tmplLink) {
+            let finalLink = tmplLink;
+            if (!finalLink || finalLink.trim() === "") {
+                finalLink = window.location.href;
+            }
+            copyText(finalLink);
+        }
+
+        function copyText(text) {
+            if (!text) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text)
+                    .then(showToast)
+                    .catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            try {
+                const tempInput = document.createElement("textarea");
+                tempInput.value = text;
+                tempInput.style.position = "fixed";
+                tempInput.style.left = "-9999px";
+                tempInput.style.top = "0";
+                document.body.appendChild(tempInput);
+                tempInput.focus();
+                tempInput.select();
+                const success = document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                if (success) showToast();
+                else alert("خطا در کپی! لطفا به صورت دستی کپی کنید.");
+            } catch (e) {
+                console.error(e);
+                alert("مرورگر شما اجازه کپی خودکار را نمی‌دهد.");
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        let qrObj = null;
+        function openQR(text, title) {
+            let content = text;
+            if ((!content || content.trim() === "") && title === 'لینک اشتراک') {
+                content = window.location.href;
+            }
+
+            const modal = document.getElementById('qrModal');
+            const container = document.getElementById('qr-placeholder');
+            const titleEl = document.getElementById('qrTitle');
+
+            // اگر عنوان انکود شده بود، آن را دیکد کن
+            try { title = decodeURIComponent(title); } catch(e){}
+            titleEl.textContent = title;
+            
+            container.innerHTML = ''; 
+
+            try {
+                qrObj = new QRCode(container, {
+                    text: content,
+                    width: 200,
+                    height: 200,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.M
+                });
+                modal.classList.add('active');
+            } catch (e) {
+                console.error("QR Error:", e);
+                container.innerHTML = '<p style="color:red">خطا در تولید QR</p>';
+                modal.classList.add('active');
+            }
+        }
+
+        function closeQR(e) {
+            document.getElementById('qrModal').classList.remove('active');
+        }
+
+        function toggleSource(btn) {
+            const card = btn.closest('.config-card');
+            const sourceBox = card.querySelector('.config-source');
+            if (sourceBox.classList.contains('open')) {
+                sourceBox.classList.remove('open');
+                btn.style.background = '';
+                btn.style.color = '';
+            } else {
+                sourceBox.classList.add('open');
+                btn.style.background = 'var(--primary)';
+                btn.style.color = '#fff';
+            }
+        }
+        
+        function toggleConfigs(header) {
+            const list = document.getElementById('configContainer');
+            if (list.classList.contains('show')) {
+                list.classList.remove('show');
+                header.classList.remove('active');
+            } else {
+                list.classList.add('show');
+                header.classList.add('active');
+                
+                // FORCE CHECK
+                setTimeout(() => {
+                    checkAndLoadConfigs();
+                }, 100);
+            }
+        }
+
+        // ==========================================
+        //  ADVANCED CONFIG FETCHING (ROBUST FIX)
+        // ==========================================
+        let configsLoaded = false;
+        
+        function checkAndLoadConfigs(forceRetry = false) {
+            const container = document.getElementById('configContainer');
+            // Check if server-side items exist
+            if (container.querySelector('.server-item') && !forceRetry) return;
+            if (configsLoaded && !forceRetry) return;
+
+            // Resolve proper subscription URL (Handle relative paths)
+            let subUrl = "{{ subscription_url }}";
+            if(subUrl && !subUrl.startsWith('http')) {
+                subUrl = window.location.origin + subUrl;
+            }
+            // Fallback: use current page URL if sub is empty
+            if(!subUrl) subUrl = window.location.href;
+
+            const loadingMsg = document.getElementById('loading-msg');
+            const errorMsg = document.getElementById('error-msg');
+            const retryBtn = document.getElementById('retry-btn');
+            
+            loadingMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+            retryBtn.style.display = 'none';
+
+            fetch(subUrl, { cache: "no-store" })
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    return res.text();
+                })
+                .then(text => {
+                    if(!text) throw new Error("Empty response");
+
+                    // Try decoding Base64
+                    let decoded = "";
+                    try {
+                        // Remove whitespace which breaks atob
+                        const cleanText = text.replace(/\s/g, '');
+                        decoded = atob(cleanText);
+                    } catch (e) {
+                        // If decode fails, assume it's plain text list
+                        console.warn("Base64 decode failed, using raw text", e);
+                        decoded = text;
+                    }
+
+                    const lines = decoded.split(/\r?\n/).filter(line => line.trim().length > 5);
+                    
+                    if(lines.length === 0) throw new Error("No configs found");
+
+                    renderClientConfigs(lines);
+                    configsLoaded = true;
+                    loadingMsg.style.display = 'none';
+                })
+                .catch(err => {
+                    console.error("Fetch error:", err);
+                    loadingMsg.style.display = 'none';
+                    errorMsg.style.display = 'block';
+                    errorMsg.textContent = "عدم دریافت کانفیگ‌ها. (CORS یا مشکل شبکه)";
+                    retryBtn.style.display = 'block';
+                });
+        }
+
+        function renderClientConfigs(links) {
+            const container = document.getElementById('configContainer');
+            
+            // Clear previous Client-Side items to avoid duplicates
+            const oldItems = container.querySelectorAll('.client-item');
+            oldItems.forEach(el => el.remove());
+
+            links.forEach((link, index) => {
+                // Basic Protocol Detection
+                let protocol = "UNKNOWN";
+                if(link.startsWith('vmess://')) protocol = "VMESS";
+                else if(link.startsWith('vless://')) protocol = "VLESS";
+                else if(link.startsWith('trojan://')) protocol = "TROJAN";
+                else if(link.startsWith('ss://')) protocol = "SHADOWSOCKS";
+                else if(link.startsWith('tuic://')) protocol = "TUIC";
+                else if(link.startsWith('hy2://') || link.startsWith('hysteria2://')) protocol = "HYSTERIA2";
+                
+                // تغییر در اینجا: استخراج نام و دیکد کردن آن برای کلاینت ساید
+                let configName = `Config #${index + 1}`;
+                if (link.includes('#')) {
+                    try {
+                        configName = decodeURIComponent(link.split('#').pop());
+                    } catch (e) {
+                        configName = link.split('#').pop();
+                    }
+                }
+
+                const card = document.createElement('div');
+                card.className = 'config-card client-item';
+                card.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s backwards`;
+                
+                card.innerHTML = `
+                    <div class="config-top">
+                        <span class="protocol-badge">${protocol}</span>
+                        <span class="config-name" dir="auto">${configName}</span>
+                    </div>
+
+                    <div class="config-toolbar">
+                        <button class="tool-btn accent" onclick="copyText('${link}')">
+                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            کپی
+                        </button>
+                        <button class="tool-btn" onclick="openQR('${link}', '${configName.replace(/'/g, "\\'")}')">
+                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"/></svg>
+                            QR
+                        </button>
+                        <button class="tool-btn" onclick="toggleSource(this)">
+                            <svg style="width:16px;height:16px;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            مشاهده
+                        </button>
+                    </div>
+
+                    <div class="config-source">
+                        <textarea class="source-text" readonly onclick="this.select()">${link}</textarea>
+                        <div style="font-size:0.7rem; color:#666; margin-top:4px;">برای کپی دستی روی متن کلیک کنید</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        window.addEventListener('load', () => {
+            const fills = document.querySelectorAll('.progress-bar-fill');
+            fills.forEach(f => {
+                const w = f.style.width;
+                f.style.width = '0%';
+                setTimeout(() => f.style.width = w, 300);
+            });
+
+            // این قطعه کد اضافه شده تا نام کانفیگ‌هایی که سرور ساید رندر شده‌اند را دیکد کند (برای فارسی)
+            document.querySelectorAll('.server-item .config-name').forEach(el => {
+                try {
+                    // فقط اگر متن شبیه انکود URL باشد آن را دیکد میکند
+                    if (el.textContent.includes('%')) {
+                        el.textContent = decodeURIComponent(el.textContent);
+                    }
+                } catch(e) {
+                    // اگر خطا داد همان متن اصلی میماند
+                }
+            });
+        });
+    </script>
+</body>
+</html>
