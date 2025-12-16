@@ -5,7 +5,7 @@
 ### ابتدا قالب را با لینک زیر دانلود کنید
 
 ```bash
-git clone https://github.com/Deepside-607/Deepnus-Template.git
+sudo wget -N -P /var/lib/rebecca/templates/subscription/https://raw.githubusercontent.com/Deepside-607/Deepnus-Template/main/index.html
 ```
 ### سپس دستور زیر را بزنید تا تمپلیت ست شود
 
