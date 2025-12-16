@@ -1,6 +1,6 @@
 ### راهنما هست تو خود کد و میتونید راحت شخصی سازی کنید❤️
 ### Template for rebecca and marzban panel
-
+![Preview](https://github.com/Deepside-607/Deepnus-Template/blob/main/IMG_20251216_230038_656.jpg?raw=true)
 ### مرزبان:  
 ### ابتدا قالب را با لینک زیر دانلود کنید
 
