@@ -19,33 +19,27 @@
             --bg-body: #050505;
             --bg-card: #121212;
             --bg-card-hover: #1a1a1a;
-            
             /* رنگ‌های اصلی نئونی (تم تاریک) */
             --primary: #ff003c;
             --primary-dark: #cc0030;
             --primary-glow: rgba(255, 0, 60, 0.4);
             --primary-dim: rgba(255, 0, 60, 0.08);
-            
             /* تایپوگرافی */
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
             --text-dark: #555555;
-            
             /* وضعیت‌ها */
             --status-active: #00ff88;
             --status-warning: #ffaa00;
             --status-danger: #ff003c;
             --status-disabled: #777777;
-            
             /* ابعاد و حاشیه‌ها */
             --radius-sm: 8px;
             --radius-md: 16px;
             --radius-lg: 24px;
             --radius-full: 9999px;
-            
             --border-light: 1px solid rgba(255, 255, 255, 0.08);
             --border-primary: 1px solid rgba(255, 0, 60, 0.3);
-            
             --font-stack: 'Arad', 'Vazirmatn', sans-serif;
         }
 
@@ -54,20 +48,16 @@
             --bg-body: #f4f6f8;
             --bg-card: #ffffff;
             --bg-card-hover: #fcfcfc;
-            
             /* تغییر: استفاده از همان کد رنگ #ff003c برای یکسان سازی */
             --primary: #ff003c; 
             --primary-dark: #cc0030;
             --primary-glow: rgba(255, 0, 60, 0.2);
             --primary-dim: rgba(255, 0, 60, 0.08);
-            
             --text-main: #212121;
             --text-muted: #666666;
             --text-dark: #cccccc;
-            
             --border-light: 1px solid rgba(0, 0, 0, 0.08);
             --border-primary: 1px solid rgba(255, 0, 60, 0.3);
-            
             /* رنگ‌های وضعیت در تم روشن (برای کنتراست بهتر) */
             --status-active: #00a152;
             --status-warning: #f57c00;
@@ -94,7 +84,6 @@
             outline: none;
             -webkit-tap-highlight-color: transparent;
         }
-
         body {
             margin: 0;
             padding: 0;
@@ -119,7 +108,6 @@
             pointer-events: none;
             transition: background 0.3s ease;
         }
-        
         body.light-theme .bg-fixed {
             /* پس زمینه تمیزتر برای تم روشن */
             background: radial-gradient(circle at top center, #ffebee 0%, #f0f2f5 80%);
@@ -136,7 +124,6 @@
         }
         .spot-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--primary); }
         .spot-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: #600010; animation-delay: 2s; }
-        
         body.light-theme .spot-2 { background: #ffcdd2; opacity: 0.4; }
 
         @keyframes pulseGlow {
@@ -161,7 +148,6 @@
             margin-bottom: 20px;
             width: 100%;
         }
-
         .icon-btn {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -179,18 +165,16 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .icon-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-
         body.light-theme .icon-btn {
             background: rgba(255, 255, 255, 0.6);
             border-color: rgba(0,0,0,0.05);
         }
-        
+
         .lang-select-wrapper {
             position: relative;
             display: flex;
             align-items: center;
         }
-
         /* استایل لیکوئید گلس (Liquid Glass) برای انتخاب زبان - آپدیت شده */
         .lang-select {
             appearance: none;
@@ -201,7 +185,6 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.18);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            
             color: var(--text-main);
             padding: 0 15px;
             padding-right: 35px; /* فضا برای فلش سفارشی */
@@ -217,7 +200,6 @@
             width: auto;
             min-width: 140px;
         }
-        
         /* آیکون فلش برای سلکت */
         .lang-select-wrapper::after {
             content: '▼';
@@ -228,7 +210,6 @@
             pointer-events: none;
             transition: 0.3s;
         }
-        
         /* اصلاح فلش در حالت RTL */
         [dir="rtl"] .lang-select { padding-right: 15px; padding-left: 35px; }
         [dir="rtl"] .lang-select-wrapper::after { right: auto; left: 12px; }
@@ -239,7 +220,6 @@
             transform: translateY(-1px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
-        
         body.light-theme .lang-select {
             background: rgba(255, 255, 255, 0.7);
             border-color: rgba(255, 255, 255, 0.4);
@@ -249,7 +229,6 @@
         body.light-theme .lang-select:hover {
             background: rgba(255, 255, 255, 0.9);
         }
-
         .lang-select option {
             background: var(--bg-card);
             color: var(--text-main);
@@ -268,7 +247,6 @@
             margin-bottom: 30px;
             animation: slideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-
         .avatar-container {
             width: 90px;
             height: 90px;
@@ -282,7 +260,6 @@
             margin-bottom: 15px;
             position: relative;
         }
-        
         .avatar-container svg {
             width: 45px; height: 45px; fill: #fff;
         }
@@ -311,7 +288,6 @@
             align-items: center;
             gap: 8px;
         }
-        
         /* تنظیمات پایه چیپ در تم روشن */
         body.light-theme .status-chip { 
             background: #fff; 
@@ -319,7 +295,6 @@
             /* نکته مهم: رنگ متن را اینجا ست نمیکنیم تا کلاس‌های زیر اعمال شوند */
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
         .dot { width: 8px; height: 8px; border-radius: 50%; background-color: currentColor; }
         
         /* اعمال رنگ‌ها با اولویت بالا (Important برای جلوگیری از باگ رنگ مشکی) */
@@ -330,6 +305,7 @@
 
         /* سایه مخصوص برای وضعیت فعال */
         .st-active { box-shadow: 0 0 10px rgba(0,255,136,0.1); }
+
 
         /* * ==============================================
          * SUBSCRIPTION ACTIONS (COPY/QR)
@@ -342,7 +318,6 @@
             margin-bottom: 30px;
             animation: fadeIn 0.8s ease 0.2s backwards;
         }
-
         .btn-main {
             background: var(--primary-dim);
             border: 1px solid var(--primary);
@@ -371,6 +346,7 @@
 
         .btn-icon { width: 20px; height: 20px; fill: currentColor; }
 
+
         /* * ==============================================
          * STATS DASHBOARD
          * ==============================================
@@ -381,7 +357,6 @@
             gap: 15px;
             margin-bottom: 35px;
         }
-
         .stat-box {
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(10px);
@@ -406,25 +381,23 @@
             background: linear-gradient(90deg, transparent, var(--primary), transparent);
             opacity: 0.6;
         }
-        
         .stat-number {
             font-size: 1.4rem; font-weight: 800; margin: 10px 0 5px; color: var(--text-main);
         }
         .stat-desc { font-size: 0.75rem; color: var(--text-muted); }
-
+        
         .progress-bar-bg {
             width: 100%; height: 6px; background: rgba(255,255,255,0.08);
             border-radius: 10px; margin-top: 15px; overflow: hidden;
         }
         body.light-theme .progress-bar-bg { background: rgba(0,0,0,0.1); }
-        
+
         .progress-bar-fill {
             height: 100%; border-radius: 10px; width: 0%;
             background: linear-gradient(90deg, var(--primary), #ff6b8b);
             transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 10px var(--primary-glow);
         }
-        
         /* در تم روشن گرادینت قرمز پررنگ */
         body.light-theme .progress-bar-fill {
             background: linear-gradient(90deg, var(--primary), #ef5350);
@@ -450,7 +423,6 @@
 
         .section-header h3 { margin: 0; font-size: 1.1rem; flex-shrink: 0; color: var(--text-main);}
         .section-line { height: 3px; flex: 1; background: linear-gradient(90deg, var(--primary), transparent); border-radius: 2px; }
-        
         .toggle-icon {
             font-size: 0.8rem;
             color: var(--primary);
@@ -487,27 +459,23 @@
         .config-top {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
         }
-        
         .protocol-badge {
             background: rgba(255, 0, 60, 0.15); color: var(--primary);
             padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;
             text-transform: uppercase; letter-spacing: 1px;
             border: 1px solid rgba(255, 0, 60, 0.2);
         }
-        
         /* اصلاح بج در تم روشن */
         body.light-theme .protocol-badge {
              background: rgba(255, 0, 60, 0.1); 
              border-color: rgba(255, 0, 60, 0.2);
         }
-
         .config-name { font-size: 0.9rem; font-weight: 600; color: #ddd; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 60%; }
         body.light-theme .config-name { color: #444; }
 
         .config-toolbar {
             display: flex; gap: 8px; margin-top: 10px;
         }
-
         .tool-btn {
             flex: 1;
             padding: 8px;
@@ -524,7 +492,6 @@
         body.light-theme .tool-btn { background: #f0f0f0; color: #555; }
         .tool-btn:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
         body.light-theme .tool-btn:hover { background: #e0e0e0; color: #000; }
-        
         .tool-btn.accent:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
 
         .config-source {
@@ -563,7 +530,6 @@
             opacity: 0; visibility: hidden; transition: 0.3s;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        
         .modal-box {
             background: #151515; width: 90%; max-width: 320px;
             padding: 25px; border-radius: 20px;
@@ -573,7 +539,7 @@
         }
         body.light-theme .modal-box { background: #fff; border-color: #ddd; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         .modal-overlay.active .modal-box { transform: scale(1); }
-        
+
         #qr-placeholder {
             background: #fff; padding: 15px; border-radius: 12px;
             margin: 15px auto; width: fit-content;
@@ -601,7 +567,7 @@
         }
         body.light-theme .toast { background: #333; }
         .toast.show { transform: translateX(-50%) translateY(0); }
-        
+
         .manual-fetch-btn {
             display: none;
             width: 100%;
@@ -625,19 +591,18 @@
     </style>
 </head>
 <body>
+
     <div class="bg-fixed"></div>
     <div class="bg-spot spot-1"></div>
     <div class="bg-spot spot-2"></div>
 
     <div class="main-wrapper">
-        
         <div class="settings-bar">
             <button class="icon-btn" onclick="toggleTheme()" title="تغییر تم">
                 <svg id="theme-icon" style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24">
                     <path class="moon" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
                 </svg>
             </button>
-
             <div class="lang-select-wrapper">
                 <!-- پرچم‌ها حذف شدند -->
                 <select class="lang-select" onchange="changeLanguage(this.value)" id="langSelect">
@@ -687,7 +652,6 @@
                     <span data-translate="usage_label">مصرف از</span> 
                     {{ user.data_limit | bytesformat if user.data_limit else 'نامحدود' }}
                 </div>
-                
                 {% if user.data_limit %}
                     {% set usage_p = (user.used_traffic / user.data_limit * 100) | round(2) %}
                     <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: {{ usage_p }}%"></div></div>
@@ -718,6 +682,12 @@
         </div>
 
         <div class="config-list" id="configContainer">
+            <!-- ADDED: Copy All Configs Button -->
+            <button class="btn-main" style="width:100%; margin-bottom:15px; background: rgba(0, 255, 136, 0.1); border-color: rgba(0, 255, 136, 0.4);" onclick="copyAllConfigs()">
+                 <svg class="btn-icon" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                 <span data-translate="copy_all">کپی همه کانفیگ‌ها</span>
+            </button>
+
             {% for link in links %}
                 {% set protocol = link.split('://')[0] %}
                 <div class="config-card server-item" style="animation: fadeInUp 0.5s ease {{ loop.index0 * 0.1 }}s backwards;">
@@ -751,18 +721,52 @@
                     </div>
                 </div>
             {% endfor %}
-            
+
             <div id="loading-msg" style="display:none; text-align:center; padding:10px; color:#666; font-size:0.8rem;" data-translate="loading">در حال دریافت اطلاعات...</div>
             <div id="error-msg" style="display:none; text-align:center; padding:10px; color:#ff003c; font-size:0.8rem;"></div>
-            
             <button id="retry-btn" class="manual-fetch-btn" onclick="checkAndLoadConfigs(true)" data-translate="retry">
                 تلاش مجدد برای دریافت کانفیگ‌ها
             </button>
         </div>
 
+        <!-- ADDED: Download Section -->
+        <div class="section-header" onclick="toggleDownloads(this)">
+            <h3 data-translate="download_apps">دانلود برنامه‌ها</h3>
+            <div class="section-line"></div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div class="config-list" id="downloadContainer">
+            <div class="dashboard-grid" style="margin-bottom:0; gap:10px;">
+                <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang" target="_blank" style="text-decoration:none;">
+                    <button class="btn-main" style="width:100%; flex-direction:column; padding:15px; font-size:0.85rem;">
+                        <svg class="btn-icon" style="width:24px;height:24px;margin-bottom:5px;" viewBox="0 0 24 24"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.25l-1.87 3.23c-1.93-.86-4.14-.86-6.07 0L8.56 5.7c-.17-.31-.54-.4-.83-.25-.29.15-.41.54-.26.85l1.84 3.18C5.55 11.02 3 14.63 3 18.5h18c0-3.87-2.55-7.48-6.4-9.02zM7.5 16c-.83 0-1.5-.67-1.5-1.5S6.67 13 7.5 13s1.5.67 1.5 1.5S8.33 16 7.5 16zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        <span data-translate="android_app">اندروید (v2rayNG)</span>
+                    </button>
+                </a>
+                <a href="https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690" target="_blank" style="text-decoration:none;">
+                    <button class="btn-main" style="width:100%; flex-direction:column; padding:15px; font-size:0.85rem;">
+                        <svg class="btn-icon" style="width:24px;height:24px;margin-bottom:5px;" viewBox="0 0 24 24"><path d="M17.33 5.48c.84-1.07 1.39-2.51 1.25-3.99-1.21.05-2.65.81-3.5 1.83-.76.88-1.42 2.3-1.25 3.66 1.34.1 2.68-.66 3.5-1.5zM17.6 19.34c-.81 1.18-1.68 2.34-3 2.37-1.3.03-1.72-.77-3.21-.77-1.5 0-1.96.75-3.2.78-1.28.04-2.25-1.28-3.07-2.46-1.67-2.42-2.95-6.84-1.23-9.83.85-1.48 2.38-2.42 4.04-2.44 1.28-.02 2.49.86 3.27.86.78 0 2.25-1.07 3.79-.91 1.3.05 2.28.53 3.1 1.3-2.76 1.67-2.29 5.8.53 7.74-.2 1.22-.92 2.76-1.52 3.36z"/></svg>
+                        <span data-translate="ios_app">آیفون (V2Box)</span>
+                    </button>
+                </a>
+                <a href="https://github.com/2dust/v2rayN/releases" target="_blank" style="text-decoration:none;">
+                    <button class="btn-main" style="width:100%; flex-direction:column; padding:15px; font-size:0.85rem;">
+                        <svg class="btn-icon" style="width:24px;height:24px;margin-bottom:5px;" viewBox="0 0 24 24"><path d="M3 5.38L10.5 4v16L3 18.62V5.38M12 3.81L21 2v20l-9-1.81V3.81z"/></svg>
+                        <span data-translate="windows_app">ویندوز (v2rayN)</span>
+                    </button>
+                </a>
+                <a href="https://github.com/MatsuriDayo/nekoray/releases" target="_blank" style="text-decoration:none;">
+                    <button class="btn-main" style="width:100%; flex-direction:column; padding:15px; font-size:0.85rem;">
+                        <svg class="btn-icon" style="width:24px;height:24px;margin-bottom:5px;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        <span data-translate="linux_app">لینوکس (Nekoray)</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+
         <div class="footer">
             <p>Deepnus-Template</p>
-            <span class="version-tag">v1.0</span>
+            <span class="version-tag">v1.1</span>
         </div>
     </div>
 
@@ -783,7 +787,6 @@
         // ==========================================
         //  FIXED LOGIC FOR COPY & QR & UX
         // ==========================================
-
         function copySubscription(tmplLink) {
             let finalLink = tmplLink;
             if (!finalLink || finalLink.trim() === "") {
@@ -800,6 +803,39 @@
                     .catch(() => fallbackCopy(text));
             } else {
                 fallbackCopy(text);
+            }
+        }
+
+        // ADDED: Logic to copy all configs
+        function copyAllConfigs() {
+            const container = document.getElementById('configContainer');
+            const sourceTexts = container.querySelectorAll('.source-text');
+            if (sourceTexts.length === 0) {
+                alert("کانفیگی برای کپی یافت نشد!");
+                return;
+            }
+            let allConfigs = "";
+            sourceTexts.forEach(txt => {
+                if(txt.value && txt.value.trim() !== "") {
+                    allConfigs += txt.value.trim() + "\n";
+                }
+            });
+            if(allConfigs.trim() === "") {
+                alert("کانفیگی برای کپی یافت نشد!");
+                return;
+            }
+            copyText(allConfigs);
+        }
+
+        // ADDED: Logic to toggle downloads section
+        function toggleDownloads(header) {
+            const list = document.getElementById('downloadContainer');
+            if (list.classList.contains('show')) {
+                list.classList.remove('show');
+                header.classList.remove('active');
+            } else {
+                list.classList.add('show');
+                header.classList.add('active');
             }
         }
 
@@ -833,13 +869,11 @@
         function openQR(text, title) {
             let content = text;
             const currentLang = localStorage.getItem('user_lang') || 'fa';
-            
             // ترجمه داینامیک تایتل QR
             if (title === 'لینک اشتراک') {
                const titles = {fa: 'لینک اشتراک', en: 'Subscription Link', ar: 'رابط الاشتراك', ru: 'Ссылка подписки'};
                title = titles[currentLang] || title;
             }
-
             if ((!content || content.trim() === "") && (title === 'لینک اشتراک' || title === 'Subscription Link' || title === 'رابط الاشتراك' || title === 'Ссылка подписки')) {
                 content = window.location.href;
             }
@@ -850,7 +884,7 @@
 
             try { title = decodeURIComponent(title); } catch(e){}
             titleEl.textContent = title;
-            
+
             // پاکسازی QR قبلی
             container.innerHTML = ''; 
             try {
@@ -878,7 +912,6 @@
         function toggleSource(btn) {
             const card = btn.closest('.config-card');
             const sourceBox = card.querySelector('.config-source');
-
             if (sourceBox.classList.contains('open')) {
                 sourceBox.classList.remove('open');
                 btn.style.background = '';
@@ -889,7 +922,7 @@
                 btn.style.color = '#fff';
             }
         }
-        
+
         function toggleConfigs(header) {
             const list = document.getElementById('configContainer');
             if (list.classList.contains('show')) {
@@ -898,7 +931,6 @@
             } else {
                 list.classList.add('show');
                 header.classList.add('active');
-                
                 setTimeout(() => {
                     checkAndLoadConfigs();
                 }, 100);
@@ -909,9 +941,9 @@
         //  ADVANCED CONFIG FETCHING
         // ==========================================
         let configsLoaded = false;
-        
         function checkAndLoadConfigs(forceRetry = false) {
             const container = document.getElementById('configContainer');
+            // Modified: Check if .server-item exists OR if we already loaded clients.
             if (container.querySelector('.server-item') && !forceRetry) return;
             if (configsLoaded && !forceRetry) return;
 
@@ -924,7 +956,7 @@
             const loadingMsg = document.getElementById('loading-msg');
             const errorMsg = document.getElementById('error-msg');
             const retryBtn = document.getElementById('retry-btn');
-            
+
             loadingMsg.style.display = 'block';
             errorMsg.style.display = 'none';
             retryBtn.style.display = 'none';
@@ -944,9 +976,8 @@
                         decoded = text;
                     }
                     const lines = decoded.split(/\r?\n/).filter(line => line.trim().length > 5);
-                    
                     if(lines.length === 0) throw new Error("No configs found");
-
+                    
                     renderClientConfigs(lines);
                     configsLoaded = true;
                     loadingMsg.style.display = 'none';
@@ -962,9 +993,10 @@
 
         function renderClientConfigs(links) {
             const container = document.getElementById('configContainer');
-            
             const oldItems = container.querySelectorAll('.client-item');
             oldItems.forEach(el => el.remove());
+
+            // Notice: The "Copy All" button remains because it's static HTML at the top.
 
             links.forEach((link, index) => {
                 let protocol = "UNKNOWN";
@@ -974,7 +1006,7 @@
                 else if(link.startsWith('ss://')) protocol = "SHADOWSOCKS";
                 else if(link.startsWith('tuic://')) protocol = "TUIC";
                 else if(link.startsWith('hy2://') || link.startsWith('hysteria2://')) protocol = "HYSTERIA2";
-                
+
                 let configName = `Config #${index + 1}`;
                 if (link.includes('#')) {
                     try {
@@ -1030,7 +1062,6 @@
                 f.style.width = '0%';
                 setTimeout(() => f.style.width = w, 300);
             });
-
             document.querySelectorAll('.server-item .config-name').forEach(el => {
                 try {
                     if (el.textContent.includes('%')) {
@@ -1038,14 +1069,12 @@
                     }
                 } catch(e) {}
             });
-
             initPreferences();
         });
 
         // ==========================================
         //  NEW: MULTI-LANGUAGE & THEME LOGIC
         // ==========================================
-
         const translations = {
             fa: {
                 page_title: "پنل کاربری",
@@ -1059,6 +1088,12 @@
                 days_left: "روز باقی‌مانده",
                 time_unlimited: "زمان نامحدود",
                 your_connections: "کانکشن‌های شما",
+                download_apps: "دانلود برنامه‌ها",
+                copy_all: "کپی همه کانفیگ‌ها",
+                android_app: "اندروید (v2rayNG)",
+                ios_app: "آیفون (V2Box)",
+                windows_app: "ویندوز (v2rayN)",
+                linux_app: "لینوکس (Nekoray)",
                 btn_copy: "کپی",
                 btn_view: "مشاهده",
                 btn_close: "بستن",
@@ -1080,6 +1115,12 @@
                 days_left: "Days remaining",
                 time_unlimited: "Unlimited Time",
                 your_connections: "Connections",
+                download_apps: "Download Apps",
+                copy_all: "Copy All Configs",
+                android_app: "Android (v2rayNG)",
+                ios_app: "iOS (V2Box)",
+                windows_app: "Windows (v2rayN)",
+                linux_app: "Linux (Nekoray)",
                 btn_copy: "Copy",
                 btn_view: "View",
                 btn_close: "Close",
@@ -1101,6 +1142,12 @@
                 days_left: "أيام متبقية",
                 time_unlimited: "وقت غير محدود",
                 your_connections: "اتصالاتك",
+                download_apps: "تنزيل التطبيقات",
+                copy_all: "نسخ جميع التكوينات",
+                android_app: "أندرويد (v2rayNG)",
+                ios_app: "آيفون (V2Box)",
+                windows_app: "ويندوز (v2rayN)",
+                linux_app: "لينكس (Nekoray)",
                 btn_copy: "نسخ",
                 btn_view: "عرض",
                 btn_close: "إغلاق",
@@ -1122,6 +1169,12 @@
                 days_left: "Дней осталось",
                 time_unlimited: "Безлимит",
                 your_connections: "Подключения",
+                download_apps: "Скачать приложения",
+                copy_all: "Копировать все",
+                android_app: "Android (v2rayNG)",
+                ios_app: "iOS (V2Box)",
+                windows_app: "Windows (v2rayN)",
+                linux_app: "Linux (Nekoray)",
                 btn_copy: "Копия",
                 btn_view: "Вид",
                 btn_close: "Закрыть",
@@ -1140,7 +1193,6 @@
                 document.body.classList.add('light-theme');
                 updateThemeIcon(true);
             }
-
             // Lang Init
             const savedLang = localStorage.getItem('user_lang') || 'fa';
             document.getElementById('langSelect').value = savedLang;
@@ -1167,11 +1219,10 @@
         function changeLanguage(lang) {
             localStorage.setItem('user_lang', lang);
             const t = translations[lang];
-            
             document.documentElement.setAttribute('dir', t.dir);
             document.body.className = document.body.className.replace(/lang-\w+/g, '');
             document.body.classList.add('lang-' + lang);
-            
+
             document.querySelectorAll('[data-translate]').forEach(el => {
                 const key = el.getAttribute('data-translate');
                 if(t[key]) el.textContent = t[key];
