@@ -1,5 +1,5 @@
 ### راهنما هست تو خود کد و میتونید راحت شخصی سازی کنید❤️
-### Template for rebecca and marzban panel
+### Template for rebecca,marzban and pasarguard panel
 ![Preview](https://github.com/Deepside-607/Deepnus-Template/blob/main/IMG_20251219_211847_674.jpg?raw=true)
 ### مرزبان:  
 ### ابتدا قالب را با لینک زیر دانلود کنید
@@ -39,5 +39,26 @@ echo 'SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"' | sudo tee -a /opt/r
 
 ```bash
 rebecca restart
+```
+
+-----------------------
+
+### پاسارگارد:  
+### ابتدا قالب را با لینک زیر دانلود کنید
+
+```bash
+sudo wget -N -P /var/lib/pasarguard/templates/subscription/ https://raw.githubusercontent.com/Deepside-607/Deepnus-Template/main/index.html
+```
+### سپس دستور زیر را بزنید تا تمپلیت ست شود
+
+```bash
+echo 'CUSTOM_TEMPLATES_DIRECTORY="/var/lib/pasarguard/templates/"' | sudo tee -a /opt/pasarguard/.env
+echo 'SUBSCRIPTION_PAGE_TEMPLATE="subscription/index.html"' | sudo tee -a /opt/pasarguard/.env
+```
+
+### سپس با دستور زیر پنل خودتون رو ری‌استارت کنید
+
+```bash
+pasarguard restart
 ```
 
